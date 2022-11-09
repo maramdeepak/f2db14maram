@@ -1,9 +1,7 @@
-var express = require('express');
-var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('donuts', { title: 'Deepak Reddy Maram Search Results' });
-});
-
-module.exports = router;
+var express = require('express'); 
+const donut_controlers= require('../controllers/donut'); 
+var router = express.Router(); 
+ 
+/* GET donuts */ 
+router.get('/', donut_controlers.donut_view_all_Page ); 
+module.exports = router; 

@@ -2,40 +2,11 @@ extends layout
 
 block content
   h1= title
-  - 
-   let results =[
-      {
-        "donot_Name": "Choco Donot",
-        "shop": "Dunkin Donot",
-        "price": 1.29
-      },
-      {
-        "donot_Name": "Healthy Donuts",
-        "shop": "Warm Belly Donuts",
-        "price": 2.99
-      },
-      {
-        "donot_Name": "Cake Donuts",
-        "shop": "The Delightful Donut",
-        "price": 2.79
-      },
-      {
-        "donot_Name": "Yeast Donuts",
-        "shop": "The Sugar Shack Donut",
-        "price": 3.29
-      },
-      {
-        "donot_Name": "Spudnuts ",
-        "shop": "Around The Block Donut",
-        "price": 1.79
-      }
-    ]
   .container-fluid 
     .row 
-      each donot in results
-        div(class="col-sm-2" onclick=`buy(${results.indexOf(donot)})`) 
-          each value,key in donot 
-            = key+" : "+value
+      each value,key in results
+        div(class="col-sm-2" onclick=`buy(${key})`) 
+            = value.donut_Name+" "+value.shop+" "+value.price
             br
   script.
     function buy(index){
