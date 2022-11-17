@@ -1,0 +1,26 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let donutid = toShow._id 
+  - let donut_Name = toShow.donut_Name 
+  - let donutshop = toShow.shop 
+  - let donutprice = toShow.price 
+  div 
+    div.row 
+      div(class='donutAttr mr-3 bg-light border border-dark rounded-2 shadow p-2  text-dark') Donut ID is: 
+      div(class='donutAttr mr-3  bg-dark border border-dark rounded-2 shadow p-2  text-white')
+      div #{donutid} 
+    div.row 
+      div(class='donutAttr mr-3 bg-light border border-dark rounded-3 shadow p-2  text-dark') Donut Name is: 
+      div(class='donutAttr mr-3 bg-dark border border-dark rounded-2 shadow p-2   text-white')
+      div #{donut_Name} 
+    div.row 
+      div(class='donutAttr mr-3 bg-light border border-dark rounded-3 shadow p-2  text-dark') Donut shop is: 
+      div(class='pizzaAttr mr-3 bg-dark border border-dark rounded-2 shadow p-2  text-white')
+      div #{donutshop} 
+    div.row 
+      div(class='donutAttr mr-3 bg-light border border-dark rounded-3 shadow p-2  text-dark') Donut price is: 
+      div(class='donutAttr mr-3 bg-dark border border-dark rounded-2 shadow p-2  text-white')
+      div #{donutprice} 

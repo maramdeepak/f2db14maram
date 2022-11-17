@@ -12,10 +12,7 @@ exports.donut_list = async function(req, res) {
     }   
 }; 
  
-// for a specific Donut. 
-exports.donut_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Donut detail: ' + req.params.id); 
-}; 
+
  
 // Handle Donut create on POST. 
 exports.donut_create_post = async function(req, res) { 
@@ -38,10 +35,6 @@ exports.donut_create_post = async function(req, res) {
     }   
 }; 
  
-// Handle Donut delete form on DELETE. 
-exports.donut_delete = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Donut delete DELETE ' + req.params.id); 
-}; 
  
 // Handle Costume update form on PUT. 
 exports.donut_update_put = async function(req, res) { 
@@ -84,3 +77,69 @@ exports.donut_detail = async function(req, res) {
         res.send(`{"error": document for id ${req.params.id} not found`); 
     } 
 }; 
+// Handle Donut delete on DELETE. 
+exports.donut_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await Donut.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
+}; 
+  
+ // Handle a show one view with id specified by query 
+exports.donut_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Donut.findById( req.query.id) 
+        res.render('donutdetail', { title: 'donut Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+// Handle building the view for creating a donut. 
+// No body, no in path parameter, no query. 
+// Does not need to be async 
+exports.donut_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('donutcreate', { title: 'Donut Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+// Handle building the view for updating a costume. 
+// query provides the id 
+exports.donut_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await Donut.findById(req.query.id) 
+        res.render('donutupdate', { title: 'Donut Update', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+// Handle a delete one view with id from query 
+exports.donut_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{ 
+        result = await Donut.findById(req.query.id) 
+        res.render('Donutdelete', { title: 'Donut Delete', toShow: 
+result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+ 
+ 

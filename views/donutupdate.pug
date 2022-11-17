@@ -1,0 +1,43 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let donutid = toShow._id 
+  - let donut_Name = toShow.donut_Name 
+  - let donutshop = toShow.shop 
+  - let donutprice = toShow.price 
+   
+  div.row(class='mb-2') 
+    div.mr-1 ID is 
+    div #{donutid} 
+  - let actionid = "/resource/donuts/" + donutid 
+  form(id='DonutForm', action= actionid, method="PUT") 
+    div.form-group 
+        label.donutAttr(for='donut_Name') Donut Name 
+        input#donut_Name(class="bg-light border border-dark rounded-3 shadow-lg p-2 d-grid gap-3 text-dark" type='text', name='donut_Name', value= donut_Name ) 
+    div.form-group 
+        label.donutAttr(for='shop') Donut shop 
+        input#shop(class="bg-light border border-dark rounded-3 shadow-lg p-2 d-grid gap-3 text-dark" type='text', name='shop', value= donutshop ) 
+    div.form-group 
+        label.donutAttr(for='price') Donut price 
+        input#price(class="bg-light border border-dark rounded-3 shadow-lg p-2 d-grid gap-3 text-dark" type='number', name='price', value= donutprice ) 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['DonutForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    }); 
