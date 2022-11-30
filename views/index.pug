@@ -1,21 +1,13 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
-  p This is a index pug
-  button(type="button", onclick = "doBump()",class="btn btn-secondary") Press me
-  div(id="bump") Bump the count.
-  div(id="Result") Count 0 with bump 0  
-  a(href="/Donuts") Donuts
-  script.
-    let count = 0
-    let bump = 1
-    function doBump() {
-      let resultdiv = document.getElementById('Result')
-      count = count + bump
-      bump += 1
-      resultdiv.innerHTML=`Count ${count} with bump ${bump}`
-    }
-
+extends layout 
+ 
+block content 
+  if (!user) 
+    a(href="/login") Login 
+    br 
+    a(href="/register") Register 
+  if (user) 
+    p You are currently logged in as #{user.username} 
+    a(href="/donuts") Take me to donuts 
+    br 
+    a(href="/logout") Logout 
 
